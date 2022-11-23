@@ -17,6 +17,7 @@ import Atualizar from './pages/gestão/Atualizar';
 import AtualizarSelecionado from './pages/gestão/AtualizarSelecionado';
 import RequireAuth from "./Utils/RequireAuth";
 import PrimeiraPagina from './pages/PrimeiraPagina';
+import AparelhosDesktop from './pages/performance/AparelhosDesktop';
 
 export const Routes = () => {
 
@@ -63,7 +64,7 @@ export const Routes = () => {
     // { path: "/atualizar-equipamento-operador", element: <RequireAuth><AtualizarEquipamentoOperador /></RequireAuth> },
     { path: "/estoque", element: <RequireAuth><Estoque /></RequireAuth> },
     // { path: "/estoque-operador", element:<RequireAuth><EstoqueEquipamentoOperador /></RequireAuth>  },
-    // { path: "/aparelhos", element:<RequireAuth><AparelhosDesktop /></RequireAuth>  },
+    { path: "/aparelhos", element:<RequireAuth><AparelhosDesktop /></RequireAuth>  },
     // { path: "/geolocalizacao", element:<RequireAuth><Geolocalizacao /></RequireAuth>  },
     // { path: "/geolocalizacao-operador", element:<RequireAuth><GeolocalizacaoOperador /></RequireAuth>  },
     // { path: "/aparelhos-operador", element: <RequireAuth><AparelhosDesktopOperador /></RequireAuth> },

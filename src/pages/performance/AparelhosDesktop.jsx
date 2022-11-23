@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { BiMap } from 'react-icons/bi';
 import { GrDocumentPdf } from 'react-icons/gr';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../config/configApi';
+
 // import { InputCadastro } from '../../style/Cadastro';
 import "../../style/File.css";
 import { FiCheckSquare } from 'react-icons/fi';
@@ -21,6 +21,8 @@ import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { BsFillCapslockFill, BsGeoAltFill, BsSearch} from "react-icons/bs";
 import { InputCadastro, SearchBox } from "./styles";
+import { apiget } from "../../Services/api";
+import { Alert } from "bootstrap";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -66,73 +68,64 @@ const AparelhoDesktop = () => {
   console.log('manutencao',manutencao)
   console.log('estoque',estoque)
   console.log('reserva',reservado)
-  useEffect(() => {
-    api.get("/estoque-inativo")
-      .then((response) => {
+
+
+  const getInativo = async () =>{
+    const response = await apiget("/estoque-inativo")
+      setInativos(response)
+  };
+  const getBateriaInativo = async () =>{
+    const response = await apiget("/bateria-inativo")
+    setInativosBateria(response)
+  };
+  const getEquipamentoInativo = async () =>{
+    const response = await apiget("/equipamento-inativo")
+    setInativosEquipamento(response)
+  };
+  const getEstoqueManutencao = async () =>{
+    const response = await apiget("/estoque-manutencao")
+    setManutencao(response)
+  };
+  const getEstoque = async () =>{
+    const response = await apiget("/estoque")
+    setEstoque(response)
+  };
+  const getSolicitacao = async () =>{
+    const response = await apiget("/solicitacao")
+    setSolicitacoes(response)
+  };
+  const getEstoqueEmergencia = async () =>{
+    const response = await apiget("/estoque-emergencia")
+    setEmergencia(response)
+  };
+  const getEstoqueReservado = async () =>{
+    const response = await apiget("/estoque-reservado")
+    setReservado(response)
+  };
   
-        setInativos(response.data)
-      })
+ 
+
+  useEffect( () => {
+  getInativo();
+  getBateriaInativo();
+  getEquipamentoInativo();
+  getEstoqueManutencao();
+  getEstoque();
+  getSolicitacao();
+  getEstoqueEmergencia();
+  getEstoqueReservado();
+
   }, []);
 
-  useEffect(() => {
-    api.get("/bateria-inativo")
-      .then((response) => {
-    
-        setInativosBateria(response.data)
-      })
-  }, []);
+ 
 
-  useEffect(() => {
-    api.get("/equipamento-inativo")
-      .then((response) => {
-    
-        setInativosEquipamento(response.data)
-      })
-  }, []);
+  
 
-  useEffect(() => {
-    api.get("/estoque-manutencao")
-      .then((response) => {
-    
-        setManutencao(response.data)
-      })
-  }, []);
 
-  useEffect(() => {
-    api.get("/estoque")
-      .then((response) => {
-    
-        setEstoque(response.data)
-      })
-  }, []);
+ 
 
-  useEffect(() => {
-    api.get("/solicitacao")
-      .then((response) => {
-    
-        setSolicitacoes(response.data)
-      })
-  }, []);
 
-  useEffect(() => {
-    api.get("/estoque-emergencia")
-      .then((response) => {
-        // setTimeout(function () {
-        //   window.location.reload(1);
-        // }, 40000);
-    
-        setEmergencia(response.data)
-        setKit(response.data)
-      })
-  }, []);
 
-  useEffect(() => {
-    api.get("/estoque-reservado")
-      .then((response) => {
-    
-        setReservado(response.data)
-      })
-  }, []);
 
   function PdfQrCode() {
 
@@ -164,12 +157,12 @@ const AparelhoDesktop = () => {
                         },
                         {
                           margin: [10, 10, 10, 40],
-                          text: estoque.numero_serie_equipamento,
+                          text: estoque?.numero_serie_equipamento,
                           alignment: 'center'
                         },
                         {
                           margin: [10, 10, 10, 10],
-                          qr: estoque.numero_serie_equipamento,
+                          qr: estoque?.numero_serie_equipamento,
                           alignment: 'center',
                           fit: '200'
                         }
@@ -201,28 +194,33 @@ const AparelhoDesktop = () => {
   const navigate = useNavigate();
 
   const atualizarEst = (estoque) => {
-    navigate(`/atualizar-equipamento/${estoque.kit}`)
+    // navigate(`/atualizar-equipamento/${estoque?.kit}`)
+    navigate(`/atualizar-equipamento`)
   };
 
   const atualizarEmer = (emergencia) => {
-    navigate(`/atualizar-equipamento-emergencia/${emergencia.kit}`)
+    // navigate(`/atualizar-equipamento-emergencia/${emergencia?.kit}`)
+    navigate(`/atualizar-equipamento-emergencia`)
   };
 
   const atualizarManu = (manutencao) => {
-    navigate(`/atualizar-equipamento/${manutencao.kit}`)
+    // navigate(`/atualizar-equipamento/${manutencao?.kit}`)
+    navigate(`/atualizar-equipamento`)
   };
 
   const atualizarIna = (inativo) => {
-    navigate(`/atualizar-equipamento/${inativo.kit}`)
+    // navigate(`/atualizar-equipamento/${inativo?.kit}`)
+    navigate(`/atualizar-equipamento`)
   };
 
   const localizar = (solicitacao) => {
-    navigate(`/geolocalizacao/${solicitacao.kit}`)
+    alert('Função indisponível');
+    // navigate(`/geolocalizacao/${solicitacao?.kit}`)
   };
 
   function handleOnChangeQuery(event) {
-    setQuery(event.target.value);
-    console.log(event.target.value);
+    setQuery(event?.target.value);
+    console.log(event?.target?.value);
   }
 
   function shouldShowBadge() {
@@ -338,10 +336,10 @@ const AparelhoDesktop = () => {
           
             </StyledTableRow>)}
 else {
-    if (solicitacao.numero_serie_equipamento.includes(query)
-  || solicitacao.nome_usuario.toLowerCase().includes(query.toLowerCase())
-  || solicitacao.numero_serie_bateria.includes(query)
-  || solicitacao.razao_social.toLowerCase().includes(query.toLowerCase())
+    if (solicitacao?.numero_serie_equipamento.includes(query)
+  || solicitacao?.nome_usuario.toLowerCase().includes(query.toLowerCase())
+  || solicitacao?.numero_serie_bateria.includes(query)
+  || solicitacao?.razao_social.toLowerCase().includes(query.toLowerCase())
 )  {
     return ( <StyledTableRow key={solicitacao?.id}>
       <StyledTableCell component="th" scope="solicitacao?">
@@ -425,9 +423,9 @@ else {
               <StyledTableCell align="center">{reservado?.numero_serie_bateria}</StyledTableCell>
               <StyledTableCell align="center">{reservado?.carga}%</StyledTableCell>
               <StyledTableCell align="center">{reservado?.razao_social}</StyledTableCell>
-              <StyledTableCell align="center"> {reservado.data_reserva.slice(-24, 10)
+              <StyledTableCell align="center"> {reservado?.data_reserva.slice(-24, 10)
                                 .split('-').reverse().join('/')}</StyledTableCell>
-              <StyledTableCell align="center">{reservado.data_reserva.slice(11)
+              <StyledTableCell align="center">{reservado?.data_reserva.slice(11)
                                 .split('Z').join('').split('Z')
                                 .join('').slice(0, 5)}</StyledTableCell>
                                 <StyledTableCell align="center">{reservado?.equipamento_status}</StyledTableCell>
@@ -444,9 +442,9 @@ else {
       <StyledTableCell align="center">{reservado?.numero_serie_bateria}</StyledTableCell>
       <StyledTableCell align="center">{reservado?.carga}%</StyledTableCell>
       <StyledTableCell align="center">{reservado?.razao_social}</StyledTableCell>
-      <StyledTableCell align="center"> {reservado.data_reserva.slice(-24, 10)
+      <StyledTableCell align="center"> {reservado?.data_reserva.slice(-24, 10)
                                 .split('-').reverse().join('/')}</StyledTableCell>
-      <StyledTableCell align="center">{reservado.data_reserva.slice(11)
+      <StyledTableCell align="center">{reservado?.data_reserva.slice(11)
                                 .split('Z').join('').split('Z')
                                 .join('').slice(0, 5)}</StyledTableCell>
       <StyledTableCell align="center">{reservado?.equipamento_status}</StyledTableCell>
@@ -495,15 +493,15 @@ else {
           {estoque.map(estoque => {
                if (query.length == 0) {
                 return (
-            <StyledTableRow key={estoque.id}>
+            <StyledTableRow key={estoque?.id}>
               <StyledTableCell component="th" scope="estoque">
-                {estoque.numero_serie_equipamento}
+                {estoque?.numero_serie_equipamento}
               </StyledTableCell>
-              <StyledTableCell align="center">{estoque.equipamento_status}</StyledTableCell>
-              <StyledTableCell align="center">{estoque.numero_serie_bateria}</StyledTableCell>
-              <StyledTableCell align="center">{estoque.bateria_status}</StyledTableCell>
-              <StyledTableCell align="center">{estoque.carga}%</StyledTableCell>
-              <StyledTableCell align="center">{estoque.razao_social}</StyledTableCell>
+              <StyledTableCell align="center">{estoque?.equipamento_status}</StyledTableCell>
+              <StyledTableCell align="center">{estoque?.numero_serie_bateria}</StyledTableCell>
+              <StyledTableCell align="center">{estoque?.bateria_status}</StyledTableCell>
+              <StyledTableCell align="center">{estoque?.carga}%</StyledTableCell>
+              <StyledTableCell align="center">{estoque?.razao_social}</StyledTableCell>
               <StyledTableCell align="center"> 
                            
                            <button onClick={() => atualizarManu(estoque)}
@@ -520,18 +518,18 @@ else {
                              <BsFillCapslockFill /></button></StyledTableCell>
             </StyledTableRow>)}
 else {
-  if (estoque.numero_serie_equipamento.includes(query)
-    || (estoque.razao_social != null && estoque.razao_social.toLowerCase().includes(query.toLowerCase()))
+  if (estoque?.numero_serie_equipamento.includes(query)
+    || (estoque?.razao_social != null && estoque?.razao_social.toLowerCase().includes(query.toLowerCase()))
   ) {
-    return ( <StyledTableRow key={estoque.id}>
+    return ( <StyledTableRow key={estoque?.id}>
       <StyledTableCell component="th" scope="estoque">
-        {estoque.numero_serie_equipamento}
+        {estoque?.numero_serie_equipamento}
       </StyledTableCell>
-      <StyledTableCell align="center">{estoque.equipamento_status}</StyledTableCell>
-      <StyledTableCell align="center">{estoque.numero_serie_bateria}</StyledTableCell>
-      <StyledTableCell align="center">{estoque.bateria_status}</StyledTableCell>
-      <StyledTableCell align="center">{estoque.carga}%</StyledTableCell>
-      <StyledTableCell align="center">{estoque.razao_social}</StyledTableCell>
+      <StyledTableCell align="center">{estoque?.equipamento_status}</StyledTableCell>
+      <StyledTableCell align="center">{estoque?.numero_serie_bateria}</StyledTableCell>
+      <StyledTableCell align="center">{estoque?.bateria_status}</StyledTableCell>
+      <StyledTableCell align="center">{estoque?.carga}%</StyledTableCell>
+      <StyledTableCell align="center">{estoque?.razao_social}</StyledTableCell>
       <StyledTableCell align="center"> 
                    
                    <button onClick={() => atualizarManu(estoque)}
@@ -594,15 +592,15 @@ else {
           {emergencia.map(emergencia => {
                if (query.length == 0) {
                 return (
-            <StyledTableRow key={emergencia.id}>
+            <StyledTableRow key={emergencia?.id}>
               <StyledTableCell component="th" scope="emergencia">
-                {emergencia.numero_serie_equipamento}
+                {emergencia?.numero_serie_equipamento}
               </StyledTableCell>
-              <StyledTableCell align="center">{emergencia.equipamento_status}</StyledTableCell>
-              <StyledTableCell align="center">{emergencia.numero_serie_bateria}</StyledTableCell>
-              <StyledTableCell align="center">{emergencia.carga}%</StyledTableCell>
-              <StyledTableCell align="center">{emergencia.razao_social}</StyledTableCell>
-              <StyledTableCell align="center">{emergencia.motivo_emergencia}</StyledTableCell>
+              <StyledTableCell align="center">{emergencia?.equipamento_status}</StyledTableCell>
+              <StyledTableCell align="center">{emergencia?.numero_serie_bateria}</StyledTableCell>
+              <StyledTableCell align="center">{emergencia?.carga}%</StyledTableCell>
+              <StyledTableCell align="center">{emergencia?.razao_social}</StyledTableCell>
+              <StyledTableCell align="center">{emergencia?.motivo_emergencia}</StyledTableCell>
 
               <StyledTableCell align="center"> 
                            
@@ -620,18 +618,18 @@ else {
                              <BsFillCapslockFill /></button></StyledTableCell>
             </StyledTableRow>)}
 else {
-  if (emergencia.numero_serie_equipamento.includes(query)
-    || (emergencia.razao_social != null && emergencia.razao_social.toLowerCase().includes(query.toLowerCase()))
+  if (emergencia?.numero_serie_equipamento.includes(query)
+    || (emergencia?.razao_social != null && emergencia?.razao_social.toLowerCase().includes(query.toLowerCase()))
   ) {
-    return ( <StyledTableRow key={emergencia.id}>
+    return ( <StyledTableRow key={emergencia?.id}>
       <StyledTableCell component="th" scope="emergencia">
-        {emergencia.numero_serie_equipamento}
+        {emergencia?.numero_serie_equipamento}
       </StyledTableCell>
-      <StyledTableCell align="center">{emergencia.equipamento_status}</StyledTableCell>
-      <StyledTableCell align="center">{emergencia.numero_serie_bateria}</StyledTableCell>
-      <StyledTableCell align="center">{emergencia.carga}%</StyledTableCell>
-      <StyledTableCell align="center">{emergencia.razao_social}</StyledTableCell>
-      <StyledTableCell align="center">{emergencia.motivo_emergencia}</StyledTableCell>
+      <StyledTableCell align="center">{emergencia?.equipamento_status}</StyledTableCell>
+      <StyledTableCell align="center">{emergencia?.numero_serie_bateria}</StyledTableCell>
+      <StyledTableCell align="center">{emergencia?.carga}%</StyledTableCell>
+      <StyledTableCell align="center">{emergencia?.razao_social}</StyledTableCell>
+      <StyledTableCell align="center">{emergencia?.motivo_emergencia}</StyledTableCell>
       
       <StyledTableCell align="center"> 
                    
@@ -707,14 +705,14 @@ else {
           {manutencao.map(manutencao => {
                if (query.length == 0) {
                 return (
-            <StyledTableRow key={manutencao.id}>
+            <StyledTableRow key={manutencao?.id}>
               <StyledTableCell component="th" scope="manutencao">
-                {manutencao.numero_serie_equipamento}
+                {manutencao?.numero_serie_equipamento}
               </StyledTableCell>
-              <StyledTableCell align="center">{manutencao.equipamento_status}</StyledTableCell>
-              <StyledTableCell align="center">{manutencao.numero_serie_bateria}</StyledTableCell>
-              <StyledTableCell align="center">{manutencao.bateria_status}</StyledTableCell>
-              <StyledTableCell align="center">{manutencao.carga}%</StyledTableCell>
+              <StyledTableCell align="center">{manutencao?.equipamento_status}</StyledTableCell>
+              <StyledTableCell align="center">{manutencao?.numero_serie_bateria}</StyledTableCell>
+              <StyledTableCell align="center">{manutencao?.bateria_status}</StyledTableCell>
+              <StyledTableCell align="center">{manutencao?.carga}%</StyledTableCell>
               <StyledTableCell align="center"> 
                            
                            <button onClick={() => atualizarManu(manutencao)}
@@ -731,17 +729,17 @@ else {
                              <BsFillCapslockFill /></button></StyledTableCell>
             </StyledTableRow>)}
 else {
-  if (manutencao.numero_serie_equipamento.includes(query)
-    || (manutencao.razao_social != null && manutencao.razao_social.toLowerCase().includes(query.toLowerCase()))
+  if (manutencao?.numero_serie_equipamento.includes(query)
+    || (manutencao?.razao_social != null && manutencao?.razao_social.toLowerCase().includes(query.toLowerCase()))
   ) {
-    return ( <StyledTableRow key={manutencao.id}>
+    return ( <StyledTableRow key={manutencao?.id}>
       <StyledTableCell component="th" scope="manutencao">
-        {manutencao.numero_serie_equipamento}
+        {manutencao?.numero_serie_equipamento}
       </StyledTableCell>
-      <StyledTableCell align="center">{manutencao.equipamento_status}</StyledTableCell>
-      <StyledTableCell align="center">{manutencao.numero_serie_bateria}</StyledTableCell>
-      <StyledTableCell align="center">{manutencao.bateria_status}</StyledTableCell>
-      <StyledTableCell align="center">{manutencao.carga}%</StyledTableCell>
+      <StyledTableCell align="center">{manutencao?.equipamento_status}</StyledTableCell>
+      <StyledTableCell align="center">{manutencao?.numero_serie_bateria}</StyledTableCell>
+      <StyledTableCell align="center">{manutencao?.bateria_status}</StyledTableCell>
+      <StyledTableCell align="center">{manutencao?.carga}%</StyledTableCell>
       <StyledTableCell align="center"> 
                    
                    <button onClick={() => atualizarManu(manutencao)}
@@ -803,14 +801,14 @@ else {
           {inativos.map(inativo => {
                if (query.length == 0) {
                 return (
-            <StyledTableRow key={inativo.id}>
+            <StyledTableRow key={inativo?.id}>
               <StyledTableCell component="th" scope="inativo">
-                {inativo.numero_serie_equipamento}
+                {inativo?.numero_serie_equipamento}
               </StyledTableCell>
-              <StyledTableCell align="center">{inativo.equipamento_status}</StyledTableCell>
-              <StyledTableCell align="center">{inativo.numero_serie_bateria}</StyledTableCell>
-              <StyledTableCell align="center">{inativo.bateria_status}</StyledTableCell>
-              <StyledTableCell align="center">{inativo.carga}%</StyledTableCell>
+              <StyledTableCell align="center">{inativo?.equipamento_status}</StyledTableCell>
+              <StyledTableCell align="center">{inativo?.numero_serie_bateria}</StyledTableCell>
+              <StyledTableCell align="center">{inativo?.bateria_status}</StyledTableCell>
+              <StyledTableCell align="center">{inativo?.carga}%</StyledTableCell>
               <StyledTableCell align="center"> 
                            
                            <button onClick={() => atualizarManu(inativo)}
@@ -827,17 +825,17 @@ else {
                              <BsFillCapslockFill /></button></StyledTableCell>
             </StyledTableRow>)}
 else {
-  if (inativo.numero_serie_equipamento.includes(query)
-    || (inativo.razao_social != null && inativo.razao_social.toLowerCase().includes(query.toLowerCase()))
+  if (inativo?.numero_serie_equipamento.includes(query)
+    || (inativo?.razao_social != null && inativo?.razao_social.toLowerCase().includes(query.toLowerCase()))
   ) {
-    return ( <StyledTableRow key={inativo.id}>
+    return ( <StyledTableRow key={inativo?.id}>
       <StyledTableCell component="th" scope="inativo">
-        {inativo.numero_serie_equipamento}
+        {inativo?.numero_serie_equipamento}
       </StyledTableCell>
-      <StyledTableCell align="center">{inativo.equipamento_status}</StyledTableCell>
-      <StyledTableCell align="center">{inativo.numero_serie_bateria}</StyledTableCell>
-      <StyledTableCell align="center">{inativo.bateria_status}</StyledTableCell>
-      <StyledTableCell align="center">{inativo.carga}%</StyledTableCell>
+      <StyledTableCell align="center">{inativo?.equipamento_status}</StyledTableCell>
+      <StyledTableCell align="center">{inativo?.numero_serie_bateria}</StyledTableCell>
+      <StyledTableCell align="center">{inativo?.bateria_status}</StyledTableCell>
+      <StyledTableCell align="center">{inativo?.carga}%</StyledTableCell>
       <StyledTableCell align="center"> 
                    
                    <button onClick={() => atualizarManu(inativo)}

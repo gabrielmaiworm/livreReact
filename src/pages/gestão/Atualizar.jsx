@@ -146,19 +146,19 @@ const Atualizar = () => {
     }
   };
 
-  const [motor_cabo_motor, setMotor_cabo_motor] = useState('');
-  const [bateria_carregador_plug, setBateria_carregador_plug] = useState('');
-  const [modulo_cabos, setModulo_cabos] = useState('');
-  const [display, setDisplay] = useState('');
-  const [acelerador, setAcelerador] = useState('');
-  const [suporte_acoplamento, setSuporte_acoplamento] = useState('');
-  const [guidao, setGuidao] = useState('');
-  const [barra_direcao, setBarra_direcao] = useState('');
-  const [suspensao, setSuspensao] = useState('');
-  const [roda_dianteira, setRoda_dianteira] = useState('');
-  const [pneus, setPneus] = useState('');
-  const [cavalete, setCavalete] = useState('');
-  const [acoplamento, setAcoplamento] = useState('');
+  const [motor_cabo_motor, setMotor_cabo_motor] = useState(false);
+  const [bateria_carregador_plug, setBateria_carregador_plug] = useState(false);
+  const [modulo_cabos, setModulo_cabos] = useState(false);
+  const [display, setDisplay] = useState(false);
+  const [acelerador, setAcelerador] = useState(false);
+  const [suporte_acoplamento, setSuporte_acoplamento] = useState(false);
+  const [guidao, setGuidao] = useState(false);
+  const [barra_direcao, setBarra_direcao] = useState(false);
+  const [suspensao, setSuspensao] = useState(false);
+  const [roda_dianteira, setRoda_dianteira] = useState(false);
+  const [pneus, setPneus] = useState(false);
+  const [cavalete, setCavalete] = useState(false);
+  const [acoplamento, setAcoplamento] = useState(false);
 
   const Motor_cabo_motor = (event) => {
     setMotor_cabo_motor(event.target.checked);
@@ -229,7 +229,7 @@ const Atualizar = () => {
       cavalete,
       acoplamento
     };
-    await apiput('/estoque', list)
+    await apiput('/estoque-check', list)
     alert("Checklist De Integridade Atualizado Com Sucesso!");
     window.location.reload();
   }

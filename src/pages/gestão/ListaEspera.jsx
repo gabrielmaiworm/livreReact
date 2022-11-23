@@ -17,7 +17,7 @@ import { FaFileSignature } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import "../../App.css";
-import api, { apiget } from "../../Services/api";
+import api, { apidelete, apiget, apipost, apiput } from "../../Services/api";
 import { TbTrashX } from 'react-icons/tb';
 import ReactTooltip from "react-tooltip";
 
@@ -55,11 +55,30 @@ const ListaEspera = () => {
   }, []);
 
   const getUsuarioLista = async () => {
-   const response = await apiget('/usuario')
+   const response = await apiget('/lista-espera')
       setUsuarioLista(response);
     
   };
 
+  const cadastrar = (e) => {
+    e.preventDefault();
+    const espera = {
+      nome,
+      documento
+    };
+    if (!espera.nome)
+      alert("Erro: preencha o nome ")
+  
+    else if (!espera.documento)
+      alert("Erro: preencha o número do documento")
+
+    else {
+      apipost('/lista-espera', espera).then((res) => {
+        alert("Adicionado alista com Sucesso!");
+        window.location.reload();
+      });
+    }
+  };
   const navigate = useNavigate();
 
   const solicitar = (usuarioLista) => {
@@ -67,8 +86,16 @@ const ListaEspera = () => {
   };
 
   const remover = async (usuarioLista) => {
-    console.log('remover')
-    const resp = await api.delete("/lista-espera", {documento: usuarioLista.documento})
+    const documento =  usuarioLista.documento;
+    try {
+      console.log('remover', documento)
+      const resp = await apiput("/lista-espera",{documento: documento}  )
+      alert("removido da lista com sucesso!!");
+      window.location.reload();
+    } catch (error) {
+      alert("ops, algo errado aconteceu!");
+    }
+   
   };
 
   const [usuario, setUsuario] = useState("");
@@ -215,6 +242,7 @@ const ListaEspera = () => {
               marginBottom: '3%',
             }}>
               <button
+              onClick={cadastrar}
                 style={{
                   backgroundColor: "#052D6A",
                   color: 'white',

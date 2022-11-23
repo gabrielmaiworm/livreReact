@@ -65,6 +65,7 @@ export const apiget = (url, payload) => {
 };
 
 export const apipost = async (url, payload) => await api.post(url, payload);
+export const apidelete = async (url, payload) => await api.delete(url, payload);
 export const apiput = async (url, payload) => await api.put(url, payload);
 
 
