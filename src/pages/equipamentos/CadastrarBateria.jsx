@@ -203,7 +203,7 @@ const CadastrarBateria = () => {
                   borderBottomColor: "#1D4F9A",
                   borderRadius: "5px",
                   height: "40px",
-                  width: "55px",
+                  width: "70px",
                   marginLeft: "4%",
                   marginTop:'-1%'
                 }} fontFamily='Poppins'

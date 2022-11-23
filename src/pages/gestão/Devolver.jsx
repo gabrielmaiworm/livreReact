@@ -16,6 +16,7 @@ import "../../style/File.css";
 import getUploadParams from "../../config/configUpload";
 import { apiget, apiput } from "../../Services/api";
 import logo from '../../images/Logo.png'
+import { cpf } from 'cpf-cnpj-validator';
 
 const maxSize = 50 * 1024 * 1024;
 var allowedMimes =
@@ -98,26 +99,25 @@ const Devolver = () => {
     console.log(e);
   }
 
-  const checkCPF = (e) => {
+  const checkCPF = async (e) => {
+    
     const cpf = e.target.value;
     try {
-      apiget(`/usuario?documento=${cpf}`).then((res) => {
-        if (res.data.length !== 0)
-          setValue("nome", res.data[0].nome);
-        else
-          alert("Erro: cadastro não localizado");
-      });
-    } catch (erro) {
-      alert("Erro ao localizar o cadastro");
-    }
+      const res = await apiget(`/usuario?documento=${cpf}`)
+
+           setValue("nome", res[0].nome);
+         
+     } catch (erro) {
+       alert("Erro ao localizar o cadastro");
+     }
     try {
-      apiget(`/solicitacao?documento=${documento}`).then((res) => {
-        if (res.data.length !== 0)
-          setValue('nome_equipamento', res.data[0].nome_equipamento);
-        setValue('carga', res.data[0].carga);
+      const res = await apiget(`/solicitacao?documento=${documento}`)
+
+        setValue('nome_equipamento', res[0].nome_equipamento);
+        setValue('carga', res[0].carga);
         setEquip(res.data);
         setFoto64(equip[0]?.foto64);
-      });
+      
     } catch (erro) {
       alert('Não há locação associada a este equipamento')
     }
@@ -146,8 +146,8 @@ const Devolver = () => {
     else if (!devolve.sugestao) alert("Erro: preencha o campo de sugestões");
     else if (!devolve.avaliacao)
       alert("Erro: preencha o número de estrelas conforme a sua avaliação");
-    else if (!devolve.foto)
-      alert("Erro: envie uma foto ou vídeo do equipamento");
+    // else if (!devolve.foto)
+    //   alert("Erro: envie uma foto ou vídeo do equipamento");
     else {
       await apiput("/solicitacao", devolve).then((res) => {
         alert("Devolução registrada com Sucesso!");
@@ -201,7 +201,7 @@ const Devolver = () => {
                   {...register("cpf")}
                   onBlur={checkCPF}
                   value={documento}
-                  onChange={(e) => setDocumento(e.target.value)}
+                  onChange={(e) => setDocumento(cpf.format(e.target.value))}
                   style={{
                     color: '#9F9F9F',
                     fontSize: '18px',
@@ -234,7 +234,7 @@ const Devolver = () => {
                 >Nome
                 </InputLabel>
                 <Input
-                  disabled="disabled"
+                  disabled
                   placeholder="Nome"
                   {...register("nome")}
                   style={{

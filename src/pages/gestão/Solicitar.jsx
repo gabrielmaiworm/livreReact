@@ -83,15 +83,17 @@ const Solicitar = () => {
   const [conjunto, setConjunto] = useState([]);
   const [nome, setNome] = useState("");
   const [kit, setKit] = useState("");
-  const [pertence, setPertence] = useState("");
+  const [foto_pertence64, setFoto_pertence64] = useState("");
 
   const fotoPertence = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
     console.log(base64)
-    setPertence(base64);
+    setFoto_pertence64(base64);
     ;
   }
+
+  
 
   const handleOnHover = (result) => {
   };
@@ -152,7 +154,8 @@ const Solicitar = () => {
       documento,
       numero_serie_equipamento,
       numero_serie_bateria,
-      kit
+      kit,
+      foto_pertence64
     };
     if (!solicitar.documento) alert("Erro: preencha o número de documento");
     else if (!solicitar.numero_serie_equipamento)
@@ -162,6 +165,8 @@ const Solicitar = () => {
     else {
       try {
         const solicitacao = await apipost("/solicitacao", solicitar);
+        alert("Solicitação realizada com sucesso!");
+        navigate("/gestao-equipamentos");
         console.log(solicitacao);
       } catch (response) {
 
@@ -417,7 +422,7 @@ const Solicitar = () => {
                   marginTop: '2vh',
                   marginRight: '4vw'
                 }}
-                  src={pertence}
+                  src={foto_pertence64}
                   alt="foto"
                   width="80vw"
                   height="80vh" />
