@@ -263,8 +263,7 @@ const Solicitar = () => {
                 placeholder="Nome"
                 disabled
                 {...register("nome")}
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
+
                 style={{
                   color: '#9F9F9F',
                   fontSize: '18px',
