@@ -196,7 +196,7 @@ const Estoque = () => {
   const navigate = useNavigate();
 
   const atualizar = (estoque) => {
-    navigate(`/atualizar-equipamento/${estoque.kit}`)
+    navigate(`/atualizar-equipamento`)
   };
 
   function handleOnChangeQuery(event) {
@@ -214,14 +214,15 @@ const Estoque = () => {
       const desmonta = { kit: estoque.kit };
       console.log('value', desmonta)
       await api.put('/estoque', desmonta)
-        // alert("Conjunto Desmontado Com Sucesso!");
+        alert("Conjunto Desmontado Com Sucesso!");
         setOpenDelete(false);
+        window.location.reload();
     } catch (error) {
       
     }
 
       // <TabPanel value='2' accessKey=''/>
-      // window.location.reload();
+     
       // <TabPanel value='2'/>
     
   }

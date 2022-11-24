@@ -501,6 +501,7 @@ else {
               <StyledTableCell align="center">{estoque?.numero_serie_bateria}</StyledTableCell>
               <StyledTableCell align="center">{estoque?.bateria_status}</StyledTableCell>
               <StyledTableCell align="center">{estoque?.carga}%</StyledTableCell>
+             
               <StyledTableCell align="center">{estoque?.razao_social}</StyledTableCell>
               <StyledTableCell align="center"> 
                            
@@ -596,7 +597,7 @@ else {
               <StyledTableCell component="th" scope="emergencia">
                 {emergencia?.numero_serie_equipamento}
               </StyledTableCell>
-              <StyledTableCell align="center">{emergencia?.equipamento_status}</StyledTableCell>
+         
               <StyledTableCell align="center">{emergencia?.numero_serie_bateria}</StyledTableCell>
               <StyledTableCell align="center">{emergencia?.carga}%</StyledTableCell>
               <StyledTableCell align="center">{emergencia?.razao_social}</StyledTableCell>
@@ -604,7 +605,21 @@ else {
 
               <StyledTableCell align="center"> 
                            
-                           <button onClick={() =>  atualizarEmer(emergencia)}
+                           <button onClick={() => alert('Funcao não disponível')}
+                             style={{
+                               width: "30px",
+                               height: '30px',
+                               borderRadius:'100px',
+                               fontWeight: 'bold',
+                               color: '#052d6a',
+                               borderColor:'#052d6a'
+                             
+                              
+                             }}>
+                             <FiCheckSquare /></button></StyledTableCell>
+                             <StyledTableCell align="center"> 
+                           
+                           <button onClick={() => alert('Funcao não disponível')}
                              style={{
                                width: "30px",
                                height: '30px',
