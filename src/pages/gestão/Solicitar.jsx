@@ -358,37 +358,28 @@ const Solicitar = () => {
             </Input>
           </FormControl>
 
-          {/* Colocar as propriedades abaixo no botão depois desse comentário */}
-
-          {/* <FormControl style={{ padding: '3px' }}>
-            <Box>
-              <ThemeProvider theme={theme}>
-                <Button color="blue" variant="contained"
-                  style={{
-                    fontSize: '18px',
-                    fontWeight: '500',
-                    borderRadius: "5px",
-                    padding: '8px',
-                  }}>
-                  <label htmlFor="foto">
-                    <IconButton
-                      color="primary"
-                      aria-label="upload picture"
-                      component="span"
-                    >
-                      <Input sx={{
-                        display: 'none',
-                      }}
-                        id="foto"
-                        variant="outlined"
-                        type="file"
-                        onChange={(e) => { fotoPertence(e); }} />
-
-                    </IconButton>Anexar foto do pertence
-                  </label>
-                </Button>
-              </ThemeProvider>
-            </Box>
+          <FormControl style={{ padding: '3px' }}>
+            <ThemeProvider theme={theme}>
+              <Button
+                color="blue"
+                variant="outlined"
+                id="foto"
+                type="file"
+                component="label"
+                onChange={(e) => { fotoPertence(e); }}
+                style={{
+                  fontSize: '18px',
+                  fontWeight: '500',
+                  borderRadius: "5px",
+                  padding: '8px',
+                }}>Anexar foto do pertence
+                <input
+                  type="file"
+                  hidden
+                  htmlFor="foto"
+                />
+              </Button>
+            </ThemeProvider>
             <img style={{
               marginTop: '2vh',
               marginRight: '4vw'
@@ -397,19 +388,6 @@ const Solicitar = () => {
               alt="foto"
               width="80vw"
               height="80vh" />
-          </FormControl> */}
-
-          <FormControl style={{ padding: '3px' }}>
-            <ThemeProvider theme={theme}>
-              <Button color="blue" variant="outlined"
-                style={{
-                  fontSize: '18px',
-                  fontWeight: '500',
-                  borderRadius: "5px",
-                  padding: '8px',
-                }}>Anexar foto do pertence
-              </Button>
-            </ThemeProvider>
           </FormControl>
 
           <FormControl style={{ padding: '3px' }}>
@@ -427,15 +405,12 @@ const Solicitar = () => {
               </Button>
             </ThemeProvider>
           </FormControl>
-
-
-
         </Box>
 
 
 
-        {/*
-          <Box marginTop='2%'>
+
+        {/* <Box marginTop='2%'>
             <FormControl>
               <Typography sx={{
                 marginLeft: '-28vw',
@@ -488,9 +463,8 @@ const Solicitar = () => {
                   height="80vh" />
               </Typography>
             </FormControl>
-          </Box>
+          </Box> */}
 
-        </Box> */}
       </Box>
     </>
   );
