@@ -115,16 +115,16 @@ const Solicitar = () => {
   const { register, handleSubmit, setValue } = useForm();
   const checkCPF = async (e) => {
     const cpf = e.target.value;
- 
-    try {
-     const res = await apiget(`/usuario?documento=${cpf}`)
-       
 
-          setValue("nome", res[0].nome);
-        
-      
-       
-    
+    try {
+      const res = await apiget(`/usuario?documento=${cpf}`)
+
+
+      setValue("nome", res[0].nome);
+
+
+
+
     } catch (erro) {
       alert("Erro ao localizar o cadastro");
     }
@@ -181,8 +181,75 @@ const Solicitar = () => {
 
   return (
     <>
-      <Box marginLeft='14%' marginTop='1%'>
-        <Typography
+      <Typography
+        marginTop='1%'
+        marginBottom='1%'
+        align='left'
+        marginLeft='20%'
+        component="div"
+        color="#052D6A"
+        fontWeight="600"
+        fontSize={28}
+        fontFamily='Poppins'
+      > Solicitar equipamento
+      </Typography>
+
+      <Box sx={{
+        border: '1px solid',
+        borderRadius: '5px',
+        borderColor: '#7396CA',
+        marginRight: '4%',
+        marginLeft: '20%',
+        overflowY: "scroll",
+        minHeight: '500px',
+      }}>
+
+        <Box sx={{
+          p: 3,
+          display: 'grid',
+          gap: 2,
+          gridTemplateColumns: 'repeat(2, 1fr)',
+        }}>
+
+          <FormControl
+            style={{
+              padding: '3px',
+            }}
+          >
+            <InputLabel
+              shrink htmlFor="bootstrap-input"
+              sx={{
+                fontSize: '19px',
+                fontWeight: "bold",
+                color: "#373737",
+              }}
+              fontFamily='Poppins'
+            >CPF
+            </InputLabel>
+            <Input
+              placeholder="CPF"
+              value={documento}
+              onChange={(e) => setDocumento(cpf.format(e.target.value))}
+              onBlur={checkCPF}
+              disableUnderline={true}
+              style={{
+                color: '#9F9F9F',
+                fontSize: '18px',
+                fontWeight: '500',
+                backgroundColor: "#EBF1FB",
+                borderBottom: "2px solid #1D4F9A",
+                borderBottomColor: "#1D4F9A",
+                borderRadius: "5px",
+                padding: '8px',
+              }}
+              fontFamily='Poppins'>
+            </Input>
+          </FormControl>
+        </Box>
+
+
+
+        {/* <Typography
           align='left'
           marginLeft='2%'
           component="div"
@@ -192,7 +259,10 @@ const Solicitar = () => {
           fontFamily='Poppins'
         > Solicitar equipamento
         </Typography>
-        <Box sx={{
+
+
+        <Box 
+        sx={{
           border: '1px solid',
           borderRadius: '5px',
           borderColor: '#7396CA',
@@ -201,10 +271,14 @@ const Solicitar = () => {
           minHeight: '500px',
           overflowY: "scroll",
         }}>
-          <Box marginTop='2%'>
+          
+          <Box 
+          marginTop='2%'
+          >
             <FormControl variant="standard" sx={{
               marginTop: '1%',
-              marginRight: '13%',
+              // marginRight: '13%',
+              
             }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
@@ -212,8 +286,8 @@ const Solicitar = () => {
                   fontSize: '19px',
                   fontWeight: "bold",
                   color: "#373737",
-                  marginLeft: '2%',
-                  marginTop: '-5%',
+                   marginLeft: '2%',
+                   marginTop: '-5%'
                 }}
                 fontFamily='Poppins'
               >CPF
@@ -237,8 +311,7 @@ const Solicitar = () => {
                   marginBottom: "5%",
                   height: "49.24px",
                   width: "459px",
-                  marginLeft: "2%",
-                  padding: '3px'
+                  padding: '3px',
                 }} fontFamily='Poppins' />
             </FormControl>
             <FormControl variant="standard" sx={{ marginTop: '1%' }}>
@@ -252,9 +325,9 @@ const Solicitar = () => {
                   marginTop: '-5%',
                 }}
                 fontFamily='Poppins'
-              >Nome
+              >'Nome'
               </InputLabel>
-              <Input
+              { <Input
                 placeholder="Nome"
                 disabled
                 {...register("nome")}
@@ -274,9 +347,8 @@ const Solicitar = () => {
                   marginBottom: "5%",
                   height: "49.24px",
                   width: "459px",
-                  marginLeft: "2%",
                   padding: '3px'
-                }} fontFamily='Poppins' />
+                }} fontFamily='Poppins' /> }
             </FormControl>
           </Box>
 
@@ -443,7 +515,7 @@ const Solicitar = () => {
             </FormControl>
           </Box>
 
-        </Box>
+        </Box> */}
       </Box>
     </>
   );
