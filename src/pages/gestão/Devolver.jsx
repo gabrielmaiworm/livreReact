@@ -143,7 +143,6 @@ const Devolver = () => {
     const devolve = { documento, status, sugestao, avaliacao, foto };
     if (!devolve.documento) alert("Erro: preencha o número de documento");
     else if (!devolve.status) alert("Erro: preencha as condições da devolução");
-    else if (!devolve.sugestao) alert("Erro: preencha o campo de sugestões");
     else if (!devolve.avaliacao)
       alert("Erro: preencha o número de estrelas conforme a sua avaliação");
     // else if (!devolve.foto)

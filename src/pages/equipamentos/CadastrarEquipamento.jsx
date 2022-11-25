@@ -110,7 +110,7 @@ const CadastrarEquipamento = () => {
     else {
       apipost('/equipamento', equipamento).then((res) => {
         alert("Equipamento Móvel Cadastrado Com Sucesso!");
-        navigate('/equipamentos');
+        window.location.reload();
       });
     }
   };

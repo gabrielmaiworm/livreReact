@@ -77,6 +77,8 @@ const Solicitar = () => {
 
   };
 
+  const [usuario, setUsuario] = useState("");
+  const [usuarios, setUsuarios] = useState([]);
   const [documento, setDocumento] = useState("");
   const [numero_serie_equipamento, setNumero_serie_equipamento] = useState("");
   const [numero_serie_bateria, setNumero_serie_bateria] = useState("");
@@ -84,6 +86,17 @@ const Solicitar = () => {
   const [nome, setNome] = useState("");
   const [kit, setKit] = useState("");
   const [foto_pertence64, setFoto_pertence64] = useState("");
+
+  const getUsuario = async () => {
+   const response = await apiget('/usuario')
+      setUsuarios(response);
+    
+  };
+
+  useEffect(() => {
+    getUsuario();
+  }, []);
+
 
   const fotoPertence = async (e) => {
     const file = e.target.files[0];
@@ -223,7 +236,7 @@ const Solicitar = () => {
                 fontFamily='Poppins'
               >CPF
               </InputLabel>
-              <Input
+              <ReactSearchAutocomplete
                 placeholder="CPF"
                 value={documento}
                 onChange={(e) => setDocumento(cpf.format(e.target.value))}

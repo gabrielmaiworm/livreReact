@@ -264,10 +264,10 @@ const AparelhoDesktop = () => {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <TabList centered onChange={handleChange} aria-label="lab API tabs example">
                 <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Em uso" value="1" />
-                <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Reservado" value="2" />
+                {/* <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Reservado" value="2" /> */}
                 <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Em espera" value="3" />
-                <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Emergência" value="4" />
-                {shouldShowBadge()}
+                {/* <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Emergência" value="4" /> */}
+                {/* {shouldShowBadge()} */}
                 <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Em manutenção" value="5" />
                 <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Inativo" value="6" />
               </TabList>
@@ -299,7 +299,7 @@ const AparelhoDesktop = () => {
                 <TableHead >
           <TableRow >
             <StyledTableCell>Usuário</StyledTableCell>
-            <StyledTableCell align="center">Status</StyledTableCell>
+            {/* <StyledTableCell align="center">Status</StyledTableCell> */}
             <StyledTableCell align="center">Equipamento</StyledTableCell>
             <StyledTableCell align="center">Bateria</StyledTableCell>
             <StyledTableCell align="center">Velocidade</StyledTableCell>
@@ -315,7 +315,7 @@ const AparelhoDesktop = () => {
               <StyledTableCell component="th" scope="solicitacao?">
               {solicitacao?.nome_usuario}
               </StyledTableCell>
-              <StyledTableCell align="center">{solicitacao?.equipamento_status}</StyledTableCell>
+              {/* <StyledTableCell align="center">{solicitacao?.equipamento_status}</StyledTableCell> */}
               <StyledTableCell align="center">{solicitacao?.numero_serie_bateria}</StyledTableCell>
               <StyledTableCell align="center">{solicitacao?.carga}%</StyledTableCell>
               <StyledTableCell align="center">{solicitacao?.velocidade ? (`${solicitacao?.velocidade}'km/h'`):('0 km/h')}</StyledTableCell>

@@ -55,7 +55,7 @@ const CadastrarBateria = () => {
     else {
      apipost('/bateria', bateria).then((res) => {
         alert("Bateria Cadastrada Com Sucesso!");
-        navigate('/equipamentos');
+        window.location.reload();
       });
     }
   };

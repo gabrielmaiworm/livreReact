@@ -77,7 +77,7 @@ const SolicitarUsuarioLista = () => {
   };
 
   const { documento, setDocumento } = useParams();
-
+  const { register, handleSubmit, setValue } = useForm();
   const valorInicial = documento ? '' : null;
   // const [documento, setDocumento] = useState("");
   const [numero_serie_equipamento, setNumero_serie_equipamento] = useState("");
@@ -111,9 +111,9 @@ const SolicitarUsuarioLista = () => {
   }, []);
 
   const getUsuario = async () => {
-    await apiget(`usuario?documento=${documento}`).then((response) => {
-      setNome(response.data[0].nome);
-    })
+    const response = await apiget(`usuario?documento=${documento}`)
+      setNome(response[0].nome);
+    
   };
 
   useEffect(() => {
@@ -145,14 +145,13 @@ const SolicitarUsuarioLista = () => {
     else {
       try {
         const solicitacao = await apipost("/solicitacao", solicitar);
-        console.log(solicitacao);
+        alert("Solicitação registrada com Sucesso!");
+        window.location.reload();
+        
       } catch (response) {
         alert(response.error);
       }
-      const solicitacao = await apipost("/solicitacao", solicitar);
-      console.log(solicitacao);
-      alert("Solicitação registrada com Sucesso!");
-      navigate("/solicita-equipamentos");
+
     }
   }
 
@@ -234,7 +233,7 @@ const SolicitarUsuarioLista = () => {
               <Input
                 placeholder="Nome"
                 disabled
-                // {...register("nome")}
+                {...register("nome")}
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
                 style={{

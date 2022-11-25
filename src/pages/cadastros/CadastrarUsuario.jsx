@@ -1,18 +1,27 @@
-import { FormControl, IconButton, Input, InputLabel } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { FormControl, Input, InputLabel, Select, Stack, TextField,IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import MenuItem from "@mui/material/MenuItem";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
 import { cpf } from 'cpf-cnpj-validator';
 import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
-import { AiOutlineFileText } from 'react-icons/ai';
-import { IoPersonCircleSharp } from 'react-icons/io5';
 import InputMask from 'react-input-mask';
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../config/configApi";
+import api, { apiget, apipost } from "../../Services/api";
+import { InputCadastro } from "../../style/Cadastro";
 import "../../style/File.css";
+import getUploadParams from "../../config/configUpload";
+import Dropzone from "react-dropzone-uploader";
+import { maxHeight } from "@mui/system";
+import { IoPersonCircleSharp } from 'react-icons/io5';
+import { AiOutlineFileText } from 'react-icons/ai';
+import { MultilineChart } from "@mui/icons-material";
 
 const maxSize = 10 * 1024 * 1024;
 var foto_documento64 = "";
@@ -78,10 +87,10 @@ const CadastrarUsuario = () => {
     getStatus();
   }, []);
 
-  const getStatus = () => {
-    api.get('/lesao').then((response) => {
-      setLesaoSelecionada(response.data);
-    });
+  const getStatus = async () => {
+    const response = await apiget('/lesao')
+      setLesaoSelecionada(response);
+    
   };
 
   const [valido, setValido] = useState(false);
@@ -107,6 +116,7 @@ const CadastrarUsuario = () => {
   const [senha, setSenha] = useState("@K17l1vr3");
   const [data, setData] = React.useState(null);
 
+  
   const fotoPerfil = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
@@ -144,7 +154,7 @@ const CadastrarUsuario = () => {
 
   const navigate = useNavigate();
 
-  const cadastrar = (e) => {
+  const cadastrar = async (e) => {
     e.preventDefault();
     const usuario = {
       nome,
@@ -188,13 +198,19 @@ const CadastrarUsuario = () => {
     else if (!usuario.foto_com_documento64) alert("Erro: envie a foto com documento");
 
     else {
-      api.post("/usuario", usuario).then((response) => {
+      try {
+        await apipost("/usuario", usuario)
         alert("Usuário Cadastrado Com Sucesso!");
         navigate(`/perfis`);
-      }).catch(error => {
-        return alert((error.response.data.weakPassword) ||
-          (error.response.data.duplicateKey))
-      })
+      } catch (error) {
+        
+        return alert((error) ||
+          (error.response))
+      }
+
+     
+    
+      
     }
   }
 
@@ -234,18 +250,15 @@ const CadastrarUsuario = () => {
           overflowY: "scroll",
         }}>
           <Box marginTop='2%'>
-            <FormControl style={{
-              marginRight: '32%',
-              marginLeft: '-20%'
-            }}>
+            <FormControl style={{ marginRight: '13%' }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
                 sx={{
                   fontSize: '19px',
                   fontWeight: "bold",
                   color: "#373737",
-                  marginLeft:'-4%'
                 }}
+                align='left'
                 fontFamily='Poppins'
               >Nome
               </InputLabel>
@@ -266,7 +279,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "205%",
+                  width: "459px",
                   marginLeft: "2%",
                   padding: '3px'
                 }} fontFamily='Poppins' />
@@ -278,8 +291,8 @@ const CadastrarUsuario = () => {
                   fontSize: '19px',
                   fontWeight: "bold",
                   color: "#373737",
-                  marginLeft: '-3%'
                 }}
+                align='left'
                 fontFamily='Poppins'
               >Sobrenome
               </InputLabel>
@@ -300,7 +313,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "205%",
+                  width: "459px",
                   marginLeft: "2%",
                   padding: '3px'
                 }} fontFamily='Poppins' />
@@ -308,18 +321,15 @@ const CadastrarUsuario = () => {
           </Box>
 
           <Box marginTop='2%'>
-            <FormControl style={{
-              marginRight: '32%',
-              marginLeft: '-20%'
-            }}>
+            <FormControl style={{ marginRight: '13%' }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
                 sx={{
                   fontSize: '19px',
                   fontWeight: "bold",
                   color: "#373737",
-                  marginLeft:'-4%'
                 }}
+                align='left'
                 fontFamily='Poppins'
               >E-mail
               </InputLabel>
@@ -341,7 +351,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "205%",
+                  width: "459px",
                   marginLeft: "2%",
                   padding: '3px'
                 }} fontFamily='Poppins' />
@@ -353,8 +363,8 @@ const CadastrarUsuario = () => {
                   fontSize: '19px',
                   fontWeight: "bold",
                   color: "#373737",
-                  marginLeft:'-4%'
                 }}
+                align='left'
                 fontFamily='Poppins'
               >Telefone
               </InputLabel>
@@ -377,7 +387,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "205%",
+                  width: "459px",
                   marginLeft: "2%",
                   padding: '3px',
                 }} fontFamily='Poppins'
@@ -388,10 +398,7 @@ const CadastrarUsuario = () => {
           </Box>
 
           <Box marginTop='2%' marginRight='51%'>
-            <FormControl style={{
-              marginRight: '3.5%',
-              marginLeft: '1.5%',
-            }}>
+            <FormControl style={{ marginRight: '3.5%', }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
                 sx={{
@@ -425,7 +432,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "95%",
+                  width: "218px",
                   marginLeft: "2%",
                   padding: '3px'
                 }} fontFamily='Poppins' />
@@ -462,7 +469,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "95%",
+                  width: "218px",
                   marginLeft: "2%",
                   padding: '3px',
                 }} fontFamily='Poppins'
@@ -483,17 +490,13 @@ const CadastrarUsuario = () => {
             }}>Endereço</Typography>
           <Box marginTop='2%'>
             <Box marginTop='2%'>
-              <FormControl style={{
-                marginRight: '32%',
-                marginLeft: '-20%'
-              }}>
+              <FormControl style={{ marginRight: '13%' }}>
                 <InputLabel
                   shrink htmlFor="bootstrap-input"
                   sx={{
                     fontSize: '19px',
                     fontWeight: "bold",
                     color: "#373737",
-                    marginLeft: '-6px'
                   }}
                   align='left'
                   fontFamily='Poppins'
@@ -521,7 +524,7 @@ const CadastrarUsuario = () => {
                     borderRadius: "5px",
                     marginBottom: "5%",
                     height: "49.24px",
-                    width: "205%",
+                    width: "459px",
                     marginLeft: "2%",
                     padding: '3px',
                   }} fontFamily='Poppins'
@@ -536,7 +539,6 @@ const CadastrarUsuario = () => {
                     fontSize: '19px',
                     fontWeight: "bold",
                     color: "#373737",
-                    marginLeft: '-6px'
                   }}
                   align='left'
                   fontFamily='Poppins'
@@ -561,7 +563,7 @@ const CadastrarUsuario = () => {
                     borderRadius: "5px",
                     marginBottom: "5%",
                     height: "49.24px",
-                    width: "205%",
+                    width: "459px",
                     marginLeft: "2%",
                     padding: '3px'
                   }} fontFamily='Poppins' />
@@ -569,11 +571,8 @@ const CadastrarUsuario = () => {
             </Box>
           </Box>
 
-          <Box marginTop='2%' >
-            <FormControl style={{
-              marginRight: '2%',
-              marginLeft: '-20%',
-            }}>
+          <Box marginTop='2%'>
+            <FormControl style={{ marginRight: '2%' }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
                 sx={{
@@ -602,12 +601,12 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "95%",
+                  width: "218px",
                   marginLeft: "2%",
                   padding: '3px'
                 }} fontFamily='Poppins' />
             </FormControl>
-            <FormControl style={{ marginRight: '11%' }}>
+            <FormControl style={{ marginRight: '13%' }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
                 sx={{
@@ -616,6 +615,7 @@ const CadastrarUsuario = () => {
                   color: "#373737",
                   marginLeft: '-6px'
                 }}
+                align='left'
                 fontFamily='Poppins'
               >Complemento
               </InputLabel>
@@ -636,7 +636,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "95%",
+                  width: "218px",
                   marginLeft: "2%",
                   padding: '3px',
                 }} fontFamily='Poppins'
@@ -648,7 +648,6 @@ const CadastrarUsuario = () => {
                   fontSize: '19px',
                   fontWeight: "bold",
                   color: "#373737",
-                  marginLeft: '-6px'
                 }}
                 shrink htmlFor="bootstrap-input"
                 align='left'
@@ -672,7 +671,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "205%",
+                  width: "459px",
                   marginLeft: "2%",
                   padding: '3px',
                 }} fontFamily='Poppins'
@@ -680,11 +679,8 @@ const CadastrarUsuario = () => {
             </FormControl>
           </Box>
 
-          <Box marginTop='2%' >
-            <FormControl style={{
-              marginRight: '5.5%',
-              marginLeft: '-46%'
-            }}>
+          <Box marginTop='2%' marginRight='52%'>
+            <FormControl style={{ marginRight: '3.5%', }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
                 sx={{
@@ -716,7 +712,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "110%",
+                  width: "300px",
                   marginLeft: "2%",
                   padding: '3px'
                 }} fontFamily='Poppins' />
@@ -753,7 +749,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "75%",
+                  width: "140px",
                   marginLeft: "2%",
                   padding: '3px',
                 }} fontFamily='Poppins'
@@ -791,7 +787,10 @@ const CadastrarUsuario = () => {
 
           <Box marginTop='2%'>
             <FormControl>
-              <Typography>
+              <Typography sx={{
+                marginLeft: '-48vw',
+                marginRight: '-15vw'
+              }}>
                 <Box>
                   <label htmlFor="foto">
                     <IconButton
@@ -799,8 +798,8 @@ const CadastrarUsuario = () => {
                       aria-label="upload picture"
                       component="span"
                       style={{
-                        marginLeft: '-260%',
-                        marginBottom: '-40%'
+                        marginRight: '23vw',
+                        marginBottom: '-4vh'
                       }}>
                       <Input sx={{
                         display: 'none',
@@ -813,9 +812,10 @@ const CadastrarUsuario = () => {
                     </IconButton>
                     <Typography
                       style={{
-                        marginLeft: '-130%',
+                        marginTop: '-4vh',
+                        marginLeft: '13.5vw',
                         backgroundColor: 'white',
-                        width: '220%',
+                        width: '459px',
                         height: '54px',
                         color: '#052D6A',
                         fontFamily: 'Poppins',
@@ -829,8 +829,8 @@ const CadastrarUsuario = () => {
                   </label>
                 </Box>
                 <img style={{
-                  marginTop: '10%',
-                  marginLeft: '-130%'
+                  marginTop: '2vh',
+                  marginRight: '4vw'
                 }}
                   src={foto_documento64}
                   alt="foto"
@@ -839,7 +839,10 @@ const CadastrarUsuario = () => {
               </Typography>
             </FormControl>
             <FormControl>
-              <Typography>
+              <Typography sx={{
+                marginLeft: '-8vw',
+                marginRight: '-65vw'
+              }}>
                 <Box>
                   <label htmlFor="fotoDocumento">
                     <IconButton
@@ -847,8 +850,8 @@ const CadastrarUsuario = () => {
                       aria-label="upload picture"
                       component="span"
                       style={{
-                        marginLeft: '20%',
-                        marginBottom: '-27%'
+                        marginRight: '38vw',
+                        marginBottom: '-4vh'
                       }}>
                       <Input sx={{
                         display: 'none',
@@ -861,10 +864,10 @@ const CadastrarUsuario = () => {
                     </IconButton>
                     <Typography
                       style={{
-                        marginTop: '-1%',
-                        marginLeft: '40%',
+                        marginTop: '-4vh',
+                        marginLeft: '13.5vw',
                         backgroundColor: 'white',
-                        width: '160%',
+                        width: '459px',
                         height: '54px',
                         color: '#052D6A',
                         fontFamily: 'Poppins',
@@ -878,8 +881,8 @@ const CadastrarUsuario = () => {
                   </label>
                 </Box>
                 <img style={{
-                  marginTop: '8%',
-                  marginLeft: '120%'
+                  marginTop: '2vh',
+                  marginRight: '14vw'
                 }}
                   src={foto_com_documento64}
                   alt="foto"
@@ -902,10 +905,7 @@ const CadastrarUsuario = () => {
           </Typography>
 
           <Box marginTop='2%' marginRight='50%'>
-            <FormControl variant="standard" sx={{
-              marginTop: '1%',
-              marginRight: '35%',
-            }}>
+            <FormControl variant="standard" sx={{ marginTop: '1%' }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
                 sx={{
@@ -913,7 +913,7 @@ const CadastrarUsuario = () => {
                   fontWeight: "bold",
                   color: "#373737",
                   marginLeft: '2%',
-                  marginTop: '-8%',
+                  marginTop: '-5%',
                 }}
                 fontFamily='Poppins'
               >Nível da lesão
@@ -932,7 +932,7 @@ const CadastrarUsuario = () => {
                   borderRadius: "5px",
                   marginBottom: "5%",
                   height: "49.24px",
-                  width: "190%",
+                  width: "459px",
                   marginLeft: "2%",
                   padding: '3px',
                 }} fontFamily='Poppins'
@@ -953,11 +953,13 @@ const CadastrarUsuario = () => {
           </Box>
 
           <Box marginLeft={'53%'}
-            marginTop={'-8.2%'}>
+            marginTop={'-8.2%'}
+          >
             <RadioGroup
               aria-labelledby="situacao"
               defaultValue=""
-              name="situacao">
+              name="situacao"
+            >
               <Box>
                 <FormControlLabel
                   value="permanente"
@@ -966,7 +968,8 @@ const CadastrarUsuario = () => {
                     '&.Mui-checked': {
                       color: '#062e61',
                     },
-                  }} onClick={(e) => setSituacao_lesao(e.target.value)} />}
+                  }} style={{ maskBorderWidth: '300px' }}
+                    onClick={(e) => setSituacao_lesao(e.target.value)} />}
                   label="Permanente"
                   style={{
                     color: 'black',
@@ -974,7 +977,7 @@ const CadastrarUsuario = () => {
                     fontWeight: "bold",
                     color: "#373737",
                     backgroundColor: '#EBF1FB',
-                    width: '75%'
+                    width: '419px'
                   }}
                 />
               </Box>
@@ -993,7 +996,7 @@ const CadastrarUsuario = () => {
                     fontSize: '21px',
                     fontWeight: "bold",
                     color: "#373737",
-                    width: '75%'
+                    width: '419px'
                   }}
                 />
               </Box>
@@ -1001,18 +1004,15 @@ const CadastrarUsuario = () => {
           </Box>
 
           <Box marginTop={'2%'}>
-            <FormControl style={{
-              marginRight: '33%',
-              marginLeft: '-28%',
-            }}>
+            <FormControl style={{ marginRight: '13%' }}>
               <InputLabel
                 shrink htmlFor="bootstrap-input"
                 sx={{
                   fontSize: '19px',
                   fontWeight: "bold",
                   color: "#373737",
-                  marginLeft: '-4%'
                 }}
+                align='left'
                 fontFamily='Poppins'
               >Detalhes da lesão
               </InputLabel>
@@ -1035,7 +1035,7 @@ const CadastrarUsuario = () => {
                   borderBottomColor: "#1D4F9A",
                   borderRadius: "5px",
                   marginBottom: "5%",
-                  width: "223%",
+                  width: "459px",
                   marginLeft: "2%",
                   padding: '3px',
                 }} fontFamily='Poppins'
@@ -1046,7 +1046,7 @@ const CadastrarUsuario = () => {
                 style={{ textDecoration: "none" }}>
                 <button style={{
                   backgroundColor: '#052D6A',
-                  width: '360%',
+                  width: '459px',
                   height: '54px',
                   color: 'white',
                   fontFamily: 'Poppins',
@@ -1064,5 +1064,6 @@ const CadastrarUsuario = () => {
     </>
   );
 };
+
 
 export default CadastrarUsuario;
