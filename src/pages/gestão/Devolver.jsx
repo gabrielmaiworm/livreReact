@@ -499,7 +499,7 @@ const Devolver = () => {
           </Box>
 
           <Box marginRight={'52%'} marginBottom='1%' >
-            <FormControl style={{
+            {/* <FormControl style={{
               marginRight: '13%',
               marginLeft: '2%',
               margiTop: '1%'
@@ -509,10 +509,10 @@ const Devolver = () => {
                 height={'100vh'}
                 src={logo}
               />
-            </FormControl>
+            </FormControl> */}
             <FormControl style={{
               marginLeft: '43.5vw',
-              marginTop: '-10vh'
+              marginTop: '5vh'
             }}>
               <button onClick={Submit}
                 style={{

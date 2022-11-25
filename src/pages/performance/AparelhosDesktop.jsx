@@ -262,8 +262,8 @@ const AparelhoDesktop = () => {
         </Typography>
         <Box sx={{  typography: 'body1', marginBottom: '29px' }}>
         <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList centered onChange={handleChange} aria-label="lab API tabs example">
+            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+              <TabList  centered onChange={handleChange} aria-label="lab API tabs example">
                 <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Em uso" value="1" />
                 {/* <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Reservado" value="2" /> */}
                 <Tab sx={{ fontSize: '0.8vw', fontWeight: 'bold' }} label="Em espera" value="3" />

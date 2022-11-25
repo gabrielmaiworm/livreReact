@@ -55,7 +55,7 @@ export const MenuSuperior = () => {
 
 
         <ButtonUser onClick={handleClick}> Olá, {user?.funcionario_nome}
-          <IoPersonCircleOutline style={{ width: "50px", heigth: "30px" }} />
+          <IoPersonCircleOutline style={{ width: "50px", heigth: "50px" }} />
         </ButtonUser>
         <Menu
           id="basic-menu"

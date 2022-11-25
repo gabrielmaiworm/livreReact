@@ -270,7 +270,7 @@ const Solicitar = () => {
                   lineColor: "black",
                   placeholderColor: "white-smoke",
                   clearIconMargin: "3px 8px 0 0",
-                  zIndex: 2,
+                  zIndex: 3,
                 }} />
                 </Typography>
             </FormControl>
@@ -404,7 +404,7 @@ const Solicitar = () => {
 
           <Box marginTop='2%'>
             <FormControl>
-              <Typography sx={{
+              {/* <Typography sx={{
                 marginLeft: '-28vw',
                 marginRight: '-29vw'
               }}>
@@ -453,7 +453,7 @@ const Solicitar = () => {
                   alt="foto"
                   width="80vw"
                   height="80vh" />
-              </Typography>
+              </Typography> */}
             </FormControl>
             <FormControl sx={{
               marginLeft: '25vw',
