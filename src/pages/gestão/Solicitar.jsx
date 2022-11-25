@@ -12,11 +12,12 @@ import Dropzone from "react-dropzone-uploader";
 import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
-
+import Button from '@mui/material/Button';
 import { apiget, apipost } from "../../Services/api";
 import "../../style/File.css";
 import getUploadParams from "../../config/configUpload";
 import { Stack } from "react-bootstrap";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const maxSize = 10 * 1024 * 1024;
 var foto64 = "";
@@ -179,6 +180,20 @@ const Solicitar = () => {
     }
   }
 
+  const theme = createTheme({
+    palette: {
+      blue: {
+        main: '#052D6A',
+        contrastText: '#fff',
+      },
+    },
+    typography: {
+      button: {
+        textTransform: 'none'
+      }
+    }
+  });
+
   return (
     <>
       <Typography
@@ -212,10 +227,7 @@ const Solicitar = () => {
         }}>
 
           <FormControl
-            style={{
-              padding: '3px',
-            }}
-          >
+            style={{ padding: '3px' }}>
             <InputLabel
               shrink htmlFor="bootstrap-input"
               sx={{
@@ -245,203 +257,184 @@ const Solicitar = () => {
               fontFamily='Poppins'>
             </Input>
           </FormControl>
+
+          <FormControl style={{ padding: '3px' }}>
+            <InputLabel
+              shrink htmlFor="bootstrap-input"
+              sx={{
+                fontSize: '19px',
+                fontWeight: "bold",
+                color: "#373737",
+              }}
+              fontFamily='Poppins'
+            >Nome
+            </InputLabel>
+            <Input
+              placeholder="Nome"
+              disabled
+              {...register("nome")}
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              disableUnderline={true}
+              style={{
+                color: '#9F9F9F',
+                fontSize: '18px',
+                fontWeight: '500',
+                backgroundColor: "#EBF1FB",
+                borderBottom: "2px solid #1D4F9A",
+                borderBottomColor: "#1D4F9A",
+                borderRadius: "5px",
+                padding: '8px',
+              }}
+              fontFamily='Poppins'>
+            </Input>
+          </FormControl>
+
+          <FormControl style={{ padding: '3px' }}>
+            <InputLabel
+              shrink htmlFor="bootstrap-input"
+              sx={{
+                fontSize: '19px',
+                fontWeight: "bold",
+                color: "#373737",
+              }}
+              fontFamily='Poppins'
+            >Número de série equipamento
+            </InputLabel>
+            <Input
+              placeholder="Número de série equipamento"
+              items={conjunto}
+              fuseOptions={{ keys: ["numero_serie_equipamento"] }}
+              resultStringKeyName="numero_serie_equipamento"
+              onSearch={handleOnSearchEquipamento}
+              onHover={handleOnHover}
+              onSelect={handleOnSelectEquipamento}
+              onFocus={handleOnFocus}
+              onClear={handleOnClearEquipamento}
+              disableUnderline={true}
+              style={{
+                color: '#9F9F9F',
+                fontSize: '18px',
+                fontWeight: '500',
+                backgroundColor: "#EBF1FB",
+                borderBottom: "2px solid #1D4F9A",
+                borderBottomColor: "#1D4F9A",
+                borderRadius: "5px",
+                padding: '8px',
+              }}
+              fontFamily='Poppins'>
+            </Input>
+          </FormControl>
+
+          <FormControl style={{ padding: '3px' }}>
+            <InputLabel
+              shrink htmlFor="bootstrap-input"
+              sx={{
+                fontSize: '19px',
+                fontWeight: "bold",
+                color: "#373737",
+              }}
+              fontFamily='Poppins'
+            >Nº de série da bateria
+            </InputLabel>
+            <Input
+              placeholder="Nº de série da bateria"
+              type="number"
+              disabled="disabled"
+              value={numero_serie_bateria}
+              onChange={(e) => setNumero_serie_bateria(e.target.value)}
+              disableUnderline={true}
+              style={{
+                color: '#9F9F9F',
+                fontSize: '18px',
+                fontWeight: '500',
+                backgroundColor: "#EBF1FB",
+                borderBottom: "2px solid #1D4F9A",
+                borderBottomColor: "#1D4F9A",
+                borderRadius: "5px",
+                padding: '8px',
+              }}
+              fontFamily='Poppins'>
+            </Input>
+          </FormControl>
+
+          {/* Colocar as propriedades abaixo no botão depois desse comentário */}
+
+          {/* <FormControl style={{ padding: '3px' }}>
+            <Box>
+              <ThemeProvider theme={theme}>
+                <Button color="blue" variant="contained"
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: '500',
+                    borderRadius: "5px",
+                    padding: '8px',
+                  }}>
+                  <label htmlFor="foto">
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                    >
+                      <Input sx={{
+                        display: 'none',
+                      }}
+                        id="foto"
+                        variant="outlined"
+                        type="file"
+                        onChange={(e) => { fotoPertence(e); }} />
+
+                    </IconButton>Anexar foto do pertence
+                  </label>
+                </Button>
+              </ThemeProvider>
+            </Box>
+            <img style={{
+              marginTop: '2vh',
+              marginRight: '4vw'
+            }}
+              src={pertence}
+              alt="foto"
+              width="80vw"
+              height="80vh" />
+          </FormControl> */}
+
+          <FormControl style={{ padding: '3px' }}>
+            <ThemeProvider theme={theme}>
+              <Button color="blue" variant="outlined"
+                style={{
+                  fontSize: '18px',
+                  fontWeight: '500',
+                  borderRadius: "5px",
+                  padding: '8px',
+                }}>Anexar foto do pertence
+              </Button>
+            </ThemeProvider>
+          </FormControl>
+
+          <FormControl style={{ padding: '3px' }}>
+            <ThemeProvider theme={theme}>
+              <Button
+                color="blue"
+                variant="contained"
+                onClick={Submit}
+                style={{
+                  fontSize: '18px',
+                  fontWeight: '500',
+                  borderRadius: "5px",
+                  padding: '8px',
+                }}>Confirmar
+              </Button>
+            </ThemeProvider>
+          </FormControl>
+
+
+
         </Box>
 
 
 
-        {/* <Typography
-          align='left'
-          marginLeft='2%'
-          component="div"
-          color="#052D6A"
-          fontWeight="600"
-          fontSize={28}
-          fontFamily='Poppins'
-        > Solicitar equipamento
-        </Typography>
-
-
-        <Box 
-        sx={{
-          border: '1px solid',
-          borderRadius: '5px',
-          borderColor: '#7396CA',
-          marginRight: '2%',
-          marginLeft: '2%',
-          minHeight: '500px',
-          overflowY: "scroll",
-        }}>
-          
-          <Box 
-          marginTop='2%'
-          >
-            <FormControl variant="standard" sx={{
-              marginTop: '1%',
-              // marginRight: '13%',
-              
-            }}>
-              <InputLabel
-                shrink htmlFor="bootstrap-input"
-                sx={{
-                  fontSize: '19px',
-                  fontWeight: "bold",
-                  color: "#373737",
-                   marginLeft: '2%',
-                   marginTop: '-5%'
-                }}
-                fontFamily='Poppins'
-              >CPF
-              </InputLabel>
-              <Input
-                placeholder="CPF"
-                value={documento}
-                onChange={(e) => setDocumento(cpf.format(e.target.value))}
-                onBlur={checkCPF}
-                style={{
-                  color: '#9F9F9F',
-                  fontSize: '18px',
-                  fontWeight: '500',
-                  backgroundColor: "#EBF1FB",
-                  borderTop: "none",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  borderBottom: "1px solid",
-                  borderBottomColor: "#1D4F9A",
-                  borderRadius: "5px",
-                  marginBottom: "5%",
-                  height: "49.24px",
-                  width: "459px",
-                  padding: '3px',
-                }} fontFamily='Poppins' />
-            </FormControl>
-            <FormControl variant="standard" sx={{ marginTop: '1%' }}>
-              <InputLabel
-                shrink htmlFor="bootstrap-input"
-                sx={{
-                  fontSize: '19px',
-                  fontWeight: "bold",
-                  color: "#373737",
-                  marginLeft: '2%',
-                  marginTop: '-5%',
-                }}
-                fontFamily='Poppins'
-              >'Nome'
-              </InputLabel>
-              { <Input
-                placeholder="Nome"
-                disabled
-                {...register("nome")}
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                style={{
-                  color: '#9F9F9F',
-                  fontSize: '18px',
-                  fontWeight: '500',
-                  backgroundColor: "#EBF1FB",
-                  borderTop: "none",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  borderBottom: "1px solid",
-                  borderBottomColor: "#1D4F9A",
-                  borderRadius: "5px",
-                  marginBottom: "5%",
-                  height: "49.24px",
-                  width: "459px",
-                  padding: '3px'
-                }} fontFamily='Poppins' /> }
-            </FormControl>
-          </Box>
-
-          <Box marginTop='2%'>
-            <FormControl style={{
-              marginRight: '13%',
-              marginTop: '2%'
-            }}>
-              <Typography sx={{
-                marginLeft: '2%',
-                marginBottom: '2%',
-                width: "458px",
-                fontSize: '16px',
-                fontWeight: "bold",
-                color: "#373737",
-              }} align='left'>
-                <InputLabel
-                  shrink htmlFor="bootstrap-input"
-                  sx={{
-                    fontSize: '19px',
-                    fontWeight: "bold",
-                    color: "#373737",
-                    // marginLeft: '2%',
-                    marginTop: '-6%',
-                  }}
-                  fontFamily='Poppins'>
-                  Nº de série do equipamento</InputLabel>
-                <ReactSearchAutocomplete
-                  placeholder="Número de série equipamento"
-                  items={conjunto}
-                  fuseOptions={{ keys: ["numero_serie_equipamento"] }} // Search on both fields
-                  resultStringKeyName="numero_serie_equipamento" // String to display in the results
-                  onSearch={handleOnSearchEquipamento}
-                  onHover={handleOnHover}
-                  onSelect={handleOnSelectEquipamento}
-                  onFocus={handleOnFocus}
-                  onClear={handleOnClearEquipamento}
-                  styling={{
-                    color: '#9F9F9F',
-                    fontSize: '18px',
-                    fontWeight: '500',
-                    backgroundColor: "#EBF1FB",
-                    borderRadius: "5px",
-                    border: 'solid',
-                    color: "#062e61",
-                    fontSize: "17px",
-                    iconColor: "black",
-                    lineColor: "black",
-                    placeholderColor: "white-smoke",
-                    clearIconMargin: "3px 8px 0 0",
-                    zIndex: 2,
-                  }} />
-              </Typography>
-            </FormControl>
-            <FormControl variant="standard" sx={{ marginTop: '1%' }}>
-              <InputLabel
-                shrink htmlFor="bootstrap-input"
-                sx={{
-                  fontSize: '19px',
-                  fontWeight: "bold",
-                  color: "#373737",
-                  marginLeft: '2%',
-                  marginTop: '-5%',
-                }}
-                fontFamily='Poppins'
-              >Nº de série da bateria
-              </InputLabel>
-              <Input
-                placeholder="Nº de série da bateria"
-                type="number"
-                disabled="disabled"
-                value={numero_serie_bateria}
-                onChange={(e) => setNumero_serie_bateria(e.target.value)}
-                style={{
-                  color: '#9F9F9F',
-                  fontSize: '18px',
-                  fontWeight: '500',
-                  backgroundColor: "#EBF1FB",
-                  borderTop: "none",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  borderBottom: "1px solid",
-                  borderBottomColor: "#1D4F9A",
-                  borderRadius: "5px",
-                  marginBottom: "5%",
-                  height: "49.24px",
-                  width: "459px",
-                  marginLeft: "2%",
-                  padding: '3px'
-                }} fontFamily='Poppins' />
-            </FormControl>
-          </Box>
-
+        {/*
           <Box marginTop='2%'>
             <FormControl>
               <Typography sx={{
@@ -494,24 +487,6 @@ const Solicitar = () => {
                   width="80vw"
                   height="80vh" />
               </Typography>
-            </FormControl>
-            <FormControl sx={{
-              marginLeft: '25vw',
-              marginRight: '-16vw'
-            }}>
-              <button onClick={Submit}
-                style={{
-                  borderRadius: '5px',
-                  backgroundColor: '#052D6A',
-                  width: '459px',
-                  height: '54px',
-                  color: 'white',
-                  fontFamily: 'Poppins',
-                  fontSize: '23px',
-                  fontWeight: '600'
-                }}
-              >Confirmar
-              </button>
             </FormControl>
           </Box>
 
