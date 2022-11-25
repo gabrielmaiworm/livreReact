@@ -106,7 +106,20 @@ const Solicitar = () => {
     ;
   }
 
-  
+  const handleOnClearUsuario = () => {
+    setDocumento('');
+  };
+
+  const handleOnSearchUsuario = (string, results) => {
+    setUsuario(string);
+  };
+
+  const handleOnSelectUsuario = (item) => {
+    setNome(item.nome);
+    setUsuario(item.documento);
+    setDocumento(item.documento);
+
+  };
 
   const handleOnHover = (result) => {
   };
@@ -224,40 +237,42 @@ const Solicitar = () => {
               marginTop: '1%',
               marginRight: '13%',
             }}>
-              <InputLabel
-                shrink htmlFor="bootstrap-input"
-                sx={{
-                  fontSize: '19px',
-                  fontWeight: "bold",
-                  color: "#373737",
-                  marginLeft: '2%',
-                  marginTop: '-5%',
-                }}
-                fontFamily='Poppins'
-              >CPF
-              </InputLabel>
+        
+            <Typography sx={{
+              width: '25vw',
+              fontSize: '15px',
+              fontWeight: "bold",
+              color: "#373737",
+              marginBottom: "2%",
+            }} align='left'>  CPF
               <ReactSearchAutocomplete
-                placeholder="CPF"
-                value={documento}
-                onChange={(e) => setDocumento(cpf.format(e.target.value))}
+                items={usuarios}
+                fuseOptions={{ keys: ["documento"] }} // Search on both fields
+                resultStringKeyName="documento" // String to display in the results
+                onSearch={handleOnSearchUsuario}
+                onHover={handleOnHover}
+                onSelect={handleOnSelectUsuario}
+                onFocus={handleOnFocus}
+                onClear={handleOnClearUsuario}
                 onBlur={checkCPF}
-                style={{
+                placeholder="CPF"
+                styling={{
                   color: '#9F9F9F',
                   fontSize: '18px',
                   fontWeight: '500',
                   backgroundColor: "#EBF1FB",
-                  borderTop: "none",
-                  borderLeft: "none",
-                  borderRight: "none",
-                  borderBottom: "1px solid",
-                  borderBottomColor: "#1D4F9A",
                   borderRadius: "5px",
-                  marginBottom: "5%",
-                  height: "49.24px",
-                  width: "459px",
-                  marginLeft: "2%",
-                  padding: '3px'
-                }} fontFamily='Poppins' />
+                  border: "1px solid",
+                  borderBottomColor: "#1D4F9A",
+                  color: "#062e61",
+                  fontSize: "17px",
+                  iconColor: "black",
+                  lineColor: "black",
+                  placeholderColor: "white-smoke",
+                  clearIconMargin: "3px 8px 0 0",
+                  zIndex: 2,
+                }} />
+                </Typography>
             </FormControl>
             <FormControl variant="standard" sx={{ marginTop: '1%' }}>
               <InputLabel
@@ -276,7 +291,7 @@ const Solicitar = () => {
                 placeholder="Nome"
                 disabled
                 {...register("nome")}
-
+                value={nome}
                 style={{
                   color: '#9F9F9F',
                   fontSize: '18px',

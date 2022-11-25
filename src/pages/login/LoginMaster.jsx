@@ -205,7 +205,7 @@ function LoginMaster() {
                                 width: '180px'
                             }} variant='contained'
                             >LOGIN</Button>
-                            <Link to="/esqueci-senha" >
+                            {/* <Link to="/esqueci-senha" >
                                 <Typography sx={{
                                     fontSize: '18px',
                                     color: 'white',
@@ -218,7 +218,7 @@ function LoginMaster() {
                                     color: 'white',
                                     marginBottom: '155px'
                                 }}>Primeiro acesso</Typography>
-                            </Link>
+                            </Link> */}
 
                         </>
                     }

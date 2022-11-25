@@ -295,7 +295,7 @@ const AparelhoDesktop = () => {
                 
             
                    <TableContainer component={Paper}>
-                <Table sx={{ minWidth: '70vw' }} >
+                <Table sx={{ minWidth: '60vw' }} >
                 <TableHead >
           <TableRow >
             <StyledTableCell>Usuário</StyledTableCell>
@@ -345,10 +345,10 @@ else {
       <StyledTableCell component="th" scope="solicitacao?">
       {solicitacao?.nome_usuario}
       </StyledTableCell>
-      <StyledTableCell align="center">{solicitacao?.equipamento_status}</StyledTableCell>
+      {/* <StyledTableCell align="center">{solicitacao?.equipamento_status}</StyledTableCell> */}
       <StyledTableCell align="center">{solicitacao?.numero_serie_bateria}</StyledTableCell>
       <StyledTableCell align="center">{solicitacao?.carga}%</StyledTableCell>
-      <StyledTableCell align="center">{solicitacao?.velocidade}</StyledTableCell>
+      <StyledTableCell align="center">{solicitacao?.velocidade ? (`${solicitacao?.velocidade}'km/h'`):('0 km/h')}</StyledTableCell>
       <StyledTableCell align="center">{solicitacao?.razao_social}</StyledTableCell>
       <StyledTableCell align="center">
                <button onClick={() => localizar(solicitacao)}
