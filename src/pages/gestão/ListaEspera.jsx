@@ -74,7 +74,7 @@ const ListaEspera = () => {
 
     else {
       apipost('/lista-espera', espera).then((res) => {
-        alert("Adicionado alista com Sucesso!");
+        alert("Adicionado a lista com Sucesso!");
         window.location.reload();
       });
     }
@@ -90,10 +90,10 @@ const ListaEspera = () => {
     try {
       console.log('remover', documento)
       const resp = await apiput("/lista-espera",{documento: documento}  )
-      alert("removido da lista com sucesso!!");
+      alert("Removido da lista com sucesso!!");
       window.location.reload();
     } catch (error) {
-      alert("ops, algo errado aconteceu!");
+      alert("Ops, algo errado aconteceu!");
     }
    
   };
@@ -250,7 +250,7 @@ const ListaEspera = () => {
                   height: '2vw',
                   fontSize: '14px',
                   fontWeight: 'bold'
-                }}> <BsFillPersonPlusFill /> Adiocionar a lista</button>
+                }}> <BsFillPersonPlusFill /> Adicionar a lista</button>
             </Typography>
 
             <Paper sx={{

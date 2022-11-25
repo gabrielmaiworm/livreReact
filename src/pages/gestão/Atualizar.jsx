@@ -693,7 +693,7 @@ const Atualizar = () => {
 
             <FormGroup style={{
               marginLeft: '43vw',
-              marginTop: '-25%',
+              marginTop: '-22%',
               width: '42.%'
             }}>
               <FormControlLabel style={{
@@ -771,7 +771,7 @@ const Atualizar = () => {
           <Box
             marginRight={'55%'}
             marginBottom='1%'
-            marginTop={'5%'}
+            marginTop={'7%'}
           >
             <button
               onClick={handleSubmitList}

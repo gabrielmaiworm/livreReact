@@ -253,9 +253,10 @@ const AparelhoDesktop = () => {
           paddingcenter:'20vw',
           color: "#062e61",
           fontWeight: "bold",
-          fontSize: "27px",
+          fontSize: "30px",
           justifySelf:'flex-start',
-          display:'flex'
+          display:'flex',
+          marginLeft: '15%'
         }}>
           Performance
         </Typography>
@@ -385,10 +386,12 @@ else {
                 <Typography style={{
                   marginBottom: '25px',
                  marginTop: '-140px'
+                 
                 }}>
              
                   <BsSearch color="#052d6a"/><InputCadastro
                     onFocus={true}
+                    disableUnderline={true}
                     name="query" value={query}
                     onChange={handleOnChangeQuery}
                     placeholder=" Buscar"
@@ -398,7 +401,7 @@ else {
                    
                 </Typography>
                 <TableContainer component={Paper}>
-                <Table sx={{ minWidth: '70vw' }} aria-label="customized table">
+                <Table sx={{ minWidth: '60vw' }} aria-label="customized table">
                 <TableHead>
           <TableRow>
             <StyledTableCell>Usuário</StyledTableCell>
@@ -477,7 +480,7 @@ else {
 
                 
                 <TableContainer component={Paper}>
-                <Table sx={{ minWidth: '70vw' }} aria-label="customized table">
+                <Table sx={{ minWidth: '60vw' }} aria-label="customized table">
                 <TableHead>
           <TableRow>
             <StyledTableCell>Equipamento</StyledTableCell>
@@ -576,7 +579,7 @@ else {
                    
                 </Typography>
                 <TableContainer component={Paper}>
-                <Table sx={{ minWidth: '70vw' }} aria-label="customized table">
+                <Table sx={{ minWidth: '60vw' }} aria-label="customized table">
                 <TableHead>
           <TableRow>
           
@@ -705,7 +708,7 @@ else {
 
                 
                 <TableContainer component={Paper}>
-                <Table sx={{ minWidth: '70vw' }} aria-label="customized table">
+                <Table sx={{ minWidth: '60vw' }} aria-label="customized table">
                 <TableHead>
           <TableRow>
             <StyledTableCell>Equipamento</StyledTableCell>
@@ -801,7 +804,7 @@ else {
 
                 
                 <TableContainer component={Paper}>
-                <Table sx={{ minWidth: '70vw' }} aria-label="customized table">
+                <Table sx={{ minWidth: '60vw' }} aria-label="customized table">
                 <TableHead>
           <TableRow>
             <StyledTableCell>Equipamento</StyledTableCell>
