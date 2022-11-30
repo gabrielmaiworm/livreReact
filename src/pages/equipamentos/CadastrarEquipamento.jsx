@@ -154,7 +154,7 @@ const CadastrarEquipamento = () => {
               <Input
                 placeholder="Nome"
                 value={nome}
-                onChange={(e) => setNome(e.target.value.replace(/[^a-z]/gi, ' '))}
+                onChange={(e) => setNome(e.target.value)}
                 style={{
                   color: '#9F9F9F',
                   fontSize: '18px',

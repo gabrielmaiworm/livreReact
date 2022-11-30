@@ -118,7 +118,7 @@ const AtualizarEquipamento = () => {
       alert("Erro: preencha o status do equipamento")
     else {
       api.put('/equipamento', equipamento).then((res) => {
-        alert("Equipamento Móvel Atualizado Com Sucesso!");
+        alert("Equipamento móvel atualizado com sucesso!");
         window.location.reload();
       });
     }
@@ -136,7 +136,7 @@ const AtualizarEquipamento = () => {
       alert("Erro: preencha a carga da bateria")
     else {
       api.put('/bateria', bateria).then((res) => {
-        alert("Bateria Atualizado Com Sucesso!");
+        alert("Bateria atualizada com sucesso!");
         window.location.reload();
       });
     }

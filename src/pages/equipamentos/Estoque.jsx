@@ -166,7 +166,7 @@ const Estoque = () => {
       alert("Erro: preencha o número de série da bateria");
     else {
       apipost("/estoque", estoque).then((res) => {
-        alert("Kit montado com Sucesso!");
+        alert("Conjunto montado com Sucesso!");
         navigateSolicita("/estoque");
         window.location.reload();
       }).catch((err) => {

@@ -179,23 +179,14 @@ const CadastrarUsuario = () => {
     };
 
     console.log(usuario);
-    if (!cpf.isValid(usuario.documento)) alert("Erro: documento inválido");
+    if (!cpf.isValid(usuario.documento)) alert("Erro: CPF inválido");
     if (!usuario.nome) alert("Erro: preencha o seu nome");
     else if (!usuario.sobrenome) alert("Erro: preencha o seu sobrenome");
     else if (!usuario.email) alert("Erro: preencha o seu email");
     else if (!usuario.documento) alert("Erro: preencha o seu documento");
-    else if (!usuario.cep) alert("Erro: preencha o seu cep");
-    else if (!usuario.logradouro) alert("Erro: preencha o seu logradouro");
-    else if (!usuario.cidade) alert("Erro: preencha a sua cidade");
-    else if (!usuario.bairro) alert("Erro: preencha o seu bairro");
-    else if (!usuario.estado) alert("Erro: preencha o seu estado");
     else if (!usuario.telefone) alert("Erro: preencha o seu telefone");
     else if (!usuario.data_de_nascicmento) alert("Erro: preencha a sua data de nascimento");
-    else if (!usuario.situacao_lesao) alert("Erro: preencha a situação");
-    else if (!usuario.nivel_lesao) alert("Erro: preencha o nível da lesão");
-    else if (!usuario.detalhe_lesao) alert("Erro: preencha os detalhes da lesão");
-    else if (!usuario.foto_documento64) alert("Erro: envie a foto de perfil");
-    else if (!usuario.foto_com_documento64) alert("Erro: envie a foto com documento");
+
 
     else {
       try {

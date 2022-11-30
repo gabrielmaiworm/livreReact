@@ -230,7 +230,7 @@ const Atualizar = () => {
       acoplamento
     };
     await apiput('/estoque-check', list)
-    alert("Checklist De Integridade Atualizado Com Sucesso!");
+    alert("Checklist de defeitos atualizado com sucesso!");
     window.location.reload();
   }
 
@@ -602,7 +602,7 @@ const Atualizar = () => {
               fontSize: '28px',
               fontWeight: '400'
             }} align='left'
-          >Checklist da integredade</Typography>
+          >Checklist de defeitos</Typography>
 
           <Box marginTop='2%' marginBottom='2%'>
             <FormGroup style={{
